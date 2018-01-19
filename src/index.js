@@ -15,11 +15,8 @@ function makeAccumulator(initialValue) {
 
 function distance(numbers) {
   let sumOfSquaredNumbers = numbers.reduce((accumulator, number) => {
-    console.log("NUM: " + number);
-    console.log("ACC: " + accumulator);
     return accumulator + (number * number);
-  });
-  console.log(sumOfSquaredNumbers);
+  }, 0);
   return Math.sqrt(sumOfSquaredNumbers);
 }
 

@@ -29,13 +29,13 @@ describe('makeAccumulator', function () {
 
 describe('distance', function () {
   it('should calculate distance correctly', function () {
-    should(main.distance([ 3, 6, 2 ])).be.equal(49);
+    should(main.distance([ 3, 6, 2 ])).be.equal(7);
   });
 });
 
 describe('replace', function () {
-  it('should calculate replace correctly', function () {
-    should(main.replace([ "fee", "fie", "foe", "fum" ], { fie: "x", foe: "y" })).be.eql([ 'fee', 'x', 'y', 'foe' ]);
+  it('should replace correctly', function () {
+    should(main.replace([ "fee", "fie", "foe", "fum" ], { fie: "x", foe: "y" })).be.eql([ 'fee', 'x', 'y', 'fum' ]);
     should(main.replace([ "a", "c", "f", "a", "e", "b" ], { a: 3, b: 7, c: 9 })).be.eql([ 3, 9, 'f', 3, 'e', 7 ]);
   });
 });
