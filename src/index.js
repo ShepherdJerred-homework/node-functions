@@ -14,12 +14,23 @@ function makeAccumulator(initialValue) {
 }
 
 function distance(numbers) {
-  let sumSquared = numbers.reduce((accumulator, number) => accumulator + number * 2);
-  return Math.sqrt(sumSquared);
+  let sumOfSquaredNumbers = numbers.reduce((accumulator, number) => {
+    console.log("NUM: " + number);
+    console.log("ACC: " + accumulator);
+    return accumulator + (number * number);
+  });
+  console.log(sumOfSquaredNumbers);
+  return Math.sqrt(sumOfSquaredNumbers);
 }
 
 function replace(array, object) {
-  
+  return array.map(e => {
+    if (e in object) {
+      return object[e];
+    } else {
+      return e;
+    }
+  });
 }
 
 module.exports = {
