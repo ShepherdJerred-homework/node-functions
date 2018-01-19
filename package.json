@@ -2,7 +2,7 @@
   "name": "node-functions",
   "version": "1.0.0",
   "description": "Practice with writing functions in Node",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha"
   },
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/ShepherdJerred-homework/node-functions/issues"
   },
-  "homepage": "https://github.com/ShepherdJerred-homework/node-functions#readme"
+  "homepage": "https://github.com/ShepherdJerred-homework/node-functions#readme",
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "mocha": "^5.0.0",
+    "semistandard": "^12.0.0",
+    "should": "^13.2.1"
+  }
 }
