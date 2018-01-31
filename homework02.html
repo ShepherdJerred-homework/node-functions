@@ -1,0 +1,158 @@
+
+<!-- saved from url=(0061)https://cs.harding.edu/gfoust/classes/comp431/homework02.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="./homework02_files/standard.css" type="text/css">
+    <title>Comp 431: Homework</title>
+    <!--<base target="_top">--><base href="." target="_top">
+    <script type="text/javascript" src="./homework02_files/shCore.js"></script><style></style>
+    <script type="text/javascript" src="./homework02_files/shBrushJScript.js"></script>
+    <script type="text/javascript">
+      SyntaxHighlighter.defaults.gutter = false;
+      SyntaxHighlighter.all();
+    </script>
+    <link type="text/css" rel="stylesheet" href="./homework02_files/shCore.css">
+    <link type="text/css" rel="stylesheet" href="./homework02_files/shThemeFoust.css">
+    <style>
+      .console { font-family: "Lucida Console",Monaco,monospace; }
+      .sqrt { text-decoration: overline; }
+      .type { color: #0cc; }
+      .number { color: #990; }
+      .string { color: #0b0; }
+      ol ol li { list-style-type: lower-alpha; }
+    </style>
+  </head>
+  <body>
+    <p>
+      For this homework assignment you will write a Node module containing
+      four functions.  I will be testing your functions using Mocha, and
+      suggest that you do too.  Please make a <code>test</code> directory to
+      put your test cases in; this will make it easy for me to add my own test
+      cases by putting them in the <code>test</code> directory.  (Recall that
+      Mocha will run all the files found in the <code>test</code> directory.)
+    </p>
+    <p>
+      In order to illustrate how these functions should work, I show examples
+      as they would appear in Node's REPL.
+    </p>
+    <ol class="spaced">
+      <li>
+        Create a Node project.  Fill in all fields
+        of <code>package.json</code> which we've been using so far.  You may
+        pick the name of your main file.  The test command should just be
+        "<code>mocha</code>".
+      </li>
+      <li>
+        Your package should export the following four functions
+        <pre class="console">&gt; fn = require(".");
+{ accumulator: <span class="type">[Function: accumulator]</span>,
+  makeAccumulator: <span class="type">[Function: makeAccumulator]</span>,
+  distance: <span class="type">[Function: distance]</span>,
+  replace: <span class="type">[Function: replace]</span> }
+</pre>
+        <ol class="spaced">
+          <li>
+            <p>
+              A function named <code>accumulator</code>.  This function should
+              use a module variable as a counter (initially 0).  The function
+              should take one optional parameter: a number.  It should add the
+              number to the counter and return the counter.
+            </p>
+            <p>
+              If the function is called without an argument it should simply
+              return the counter without modifying it.  Beware that
+              adding <code>undefined</code> to a number will result in the
+              special number <code>NaN</code> (not a number).
+            </p>
+            <pre class="console">&gt; fn.accumulator();
+<span class="number">0</span>
+&gt; fn.accumulator(10);
+<span class="number">10</span>
+&gt; fn.accumulator(25);
+<span class="number">35</span>
+&gt; fn.accumulator(40);
+<span class="number">75</span>
+&gt; fn.accumulator();
+<span class="number">75</span>
+</pre>
+          </li>
+          <li>
+            <p>
+              A function named <code>makeAccumulator</code>.  This function
+              should take one parameter: a number.  It should create a
+              function which works just like the <code>accumulator</code>
+              function except using its own internal counter initialized to
+              the argument value.
+            </p>
+            <pre class="console">&gt; a1 = fn.makeAccumulator(0);
+<span class="type">[Function]</span>
+&gt; a1();
+<span class="number">0</span>
+&gt; a1(10);
+<span class="number">10</span>
+&gt; a1(25);
+<span class="number">35</span>
+&gt; a1();
+<span class="number">35</span>
+&gt; a2 = fn.makeAccumulator(100);
+<span class="type">[Function]</span>
+&gt; a2(10);
+<span class="number">110</span>
+&gt; a2(25);
+<span class="number">135</span>
+&gt; a1();
+<span class="number">35</span>
+&gt; fn.accumulator();
+<span class="number">75</span>
+</pre>
+          </li>
+          <li>
+            A function named <code>distance</code>.  The function should take
+            one paramter: and array of numbers.  It should calculate and
+            return the vector distance of the array — that is, the
+            square root of the sum of the squares of the individual numbers.
+            <p>
+              Example: if your array was <code>[3, 6, 2]</code>, then the
+              vector length would be <code>√<span class="sqrt">6*6 + 3*3
+              + 2*2</span> == √<span class="sqrt">36 + 9 + 4</span> ==
+              √<span class="sqrt">49</span> == 7</code>
+            </p>
+            <p>
+              To receive full credit you <em>must</em> use
+              the <code>reduce</code> function of the array to calculate the
+              sum of the squares.  You can calculate the square root using
+              the <code>Math.sqrt</code> function.
+            </p>
+            <pre class="console">&gt; fn.distance([ 3, 6, 2 ]);
+<span class="number">7</span>
+</pre>
+          </li>
+          <li>
+            A function named <code>replace</code>.  The function should take
+            two arguments: an array of strings and an object.  The function
+            should return a new array which is a copy of the original except
+            that any strings which are properties in the object should be
+            replaced with their value in the object.
+            <pre class="console">&gt; fn.replace([ "fee", "fie", "foe", "fum" ], { fie: "x", foe: "y" });
+[ <span class="string">'fee'</span>, <span class="string">'x'</span>, <span class="string">'y'</span>, <span class="string">'fum'</span> ]
+&gt; fn.replace([ "a", "c", "f", "a", "e", "b" ], { a: 3, b: 7, c: 9 });
+[ <span class="number">3</span>, <span class="number">9</span>, <span class="string">'f'</span>, <span class="number">3</span>, <span class="string">'e'</span>, <span class="number">7</span> ]
+</pre>
+            <p>
+              To receive full credit you <em>must</em> use
+              the <code>map</code> function to create the new array.  You can
+              test if a given property is in an object using
+              the <code>in</code> operator.
+            </p>
+            <div><div id="highlighter_415289" class="syntaxhighlighter nogutter  jscript"><div class="toolbar"><span><a href="https://cs.harding.edu/gfoust/classes/comp431/homework02.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">let</code> <code class="jscript plain">o = getObject();</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="jscript keyword">if</code> <code class="jscript plain">(</code><code class="jscript string">"x"</code> <code class="jscript keyword">in</code> <code class="jscript plain">o) {</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">console.log(o.x);</code></div><div class="line number5 index4 alt2"><code class="jscript plain">}</code></div><div class="line number6 index5 alt1"><code class="jscript keyword">else</code> <code class="jscript plain">{</code></div><div class="line number7 index6 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">console.log(</code><code class="jscript string">"No x"</code><code class="jscript plain">);</code></div><div class="line number8 index7 alt1"><code class="jscript plain">}</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="jscript keyword">let</code> <code class="jscript plain">s = getString();</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="jscript keyword">if</code> <code class="jscript plain">(s </code><code class="jscript keyword">in</code> <code class="jscript plain">o) {</code></div><div class="line number13 index12 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">console.log(o.s);</code></div><div class="line number14 index13 alt1"><code class="jscript plain">}</code></div><div class="line number15 index14 alt2"><code class="jscript keyword">else</code> <code class="jscript plain">{</code></div><div class="line number16 index15 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">console.log(</code><code class="jscript string">`No ${s}`</code><code class="jscript plain">);</code></div><div class="line number17 index16 alt2"><code class="jscript plain">}</code></div></div></td></tr></tbody></table></div></div>
+          </li>
+        </ol>
+      </li>
+      <li>Create a <code>test</code> directory.  When you
+        run <code>mocha</code> it will look in every file in this directory
+        for tests.  Add a file to this directory containing test cases for
+        each of the functions you wrote.
+      </li>
+    </ol>
+  
+
+</body></html>
